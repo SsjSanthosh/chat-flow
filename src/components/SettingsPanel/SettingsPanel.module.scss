@@ -1,0 +1,22 @@
+@import "styles/variables";
+.container {
+
+}
+
+.nodes-container {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    gap:$sp-lg;
+    padding:$sp-md;
+}
+.node {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #a7a7a7;
+  padding: $sp-md $sp-lg;
+  border-radius: 4px;
+  cursor: pointer;
+}
+

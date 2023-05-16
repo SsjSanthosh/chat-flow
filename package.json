@@ -6,17 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create": "node scripts"
   },
   "dependencies": {
     "@types/node": "20.1.5",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
+    "bootstrap": "^5.2.3",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "minimist": "^1.2.8",
+    "nanoid": "^4.0.2",
     "next": "13.4.2",
+    "object-path": "^0.11.8",
+    "prettier": "^2.8.8",
     "react": "18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "reactflow": "^11.7.1",
+    "sass": "^1.62.1",
     "typescript": "5.0.4"
   }
 }
