@@ -1,15 +1,12 @@
-import CustomNode from "components/CustomNode";
 import MessageNode from "components/MessageNode";
 import SettingsPanel from "components/SettingsPanel";
 import { nanoid } from "nanoid";
 import { useCallback, useRef, useState } from "react";
-import { Button } from "react-bootstrap";
 import ReactFlow, {
   addEdge,
   Background,
   Connection,
   Controls,
-  Edge,
   MiniMap,
   Node,
   ReactFlowInstance,
@@ -42,7 +39,7 @@ const nodeTypes = {
 const FlowController = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [isNodeSelected, setIsNodeSelected] = useState(false);
+  const [selectedNode, setSelectedNode] = useState<null | Node>(null);
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [flowInstance, setFlowInstance] = useState<null | ReactFlowInstance>(
     null
@@ -51,17 +48,6 @@ const FlowController = () => {
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
-
-  // create a new node, and add it to the list of existing nodes.
-  const addNode = useCallback(() => {
-    const node: Node = {
-      id: nanoid(),
-      position: { x: 0, y: nodes.length * 20 },
-      data: { label: `Node #${nodes.length + 1}` },
-      type: "message",
-    };
-    setNodes((old) => old.concat(node));
-  }, [nodes, setNodes]);
 
   const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -75,7 +61,6 @@ const FlowController = () => {
         const reactFlowBounds =
           reactFlowWrapper.current.getBoundingClientRect();
         const type = event.dataTransfer.getData("application/reactflow");
-
         // check if the dropped element is valid
         if (typeof type === "undefined" || !type) {
           return;
@@ -86,7 +71,7 @@ const FlowController = () => {
           y: event.clientY - reactFlowBounds.top,
         });
         const newNode = {
-          id:nanoid(),
+          id: nanoid(),
           type,
           position,
           data: { label: `${type} node` },
@@ -100,30 +85,29 @@ const FlowController = () => {
 
   return (
     <div className={styles["container"]}>
-      <div className={styles["flow-wrapper"]}>
-        <ReactFlowProvider>
-          <div ref={reactFlowWrapper} className={styles["flow-container"]}>
-            <ReactFlow
-              nodes={nodes}
-              edges={edges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              nodeTypes={nodeTypes}
-              onInit={setFlowInstance}
-              onDragOver={onDragOver}
-              onDrop={onDrop}
-            >
-              <Controls />
-              <MiniMap />
-              <Background gap={12} size={1} />
-            </ReactFlow>
-          </div>
-        </ReactFlowProvider>
+      <div ref={reactFlowWrapper} className={styles["flow-container"]}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          nodeTypes={nodeTypes}
+          onInit={setFlowInstance}
+          onDragOver={onDragOver}
+          onDrop={onDrop}
+          onNodeClick={(_, node) => setSelectedNode(node)}
+        >
+          <Controls />
+          <MiniMap />
+          <Background gap={12} size={1} />
+        </ReactFlow>
       </div>
       <div className={styles["panel-container"]}>
-        <h1>Panel</h1>
-        <SettingsPanel isNodeSelected={false} />
+        <SettingsPanel
+          selectedNode={selectedNode}
+          resetNode={() => setSelectedNode(null)}
+        />
       </div>
     </div>
   );

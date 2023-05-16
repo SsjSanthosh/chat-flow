@@ -1,0 +1,10 @@
+@import "styles/variables";
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-top: $sp-lg;
+    row-gap: $sp-md;
+    label {
+        font-weight: 500;
+    }
+}

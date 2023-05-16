@@ -20,3 +20,18 @@
   cursor: pointer;
 }
 
+.node-editor-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: $sp-md;
+  border-bottom: 1px solid rgba(167, 167, 167, 0.6);
+  align-items: center;
+  h5 {
+    font-weight: 300;
+    margin:0;
+    text-align: center;
+  }
+}
+.node-editor-close-icon {
+  cursor: pointer;
+}
