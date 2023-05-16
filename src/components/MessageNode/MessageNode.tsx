@@ -5,6 +5,7 @@ import {
   Connection,
   getConnectedEdges,
   Handle,
+  Node,
   Position,
   useReactFlow,
 } from "reactflow";
@@ -12,25 +13,28 @@ import {
 import WhatsAppLogo from "../.../../../../public/images/whatsapp_logo.png";
 import styles from "./MessageNode.module.scss";
 
-const MessageNode = ({ data }) => {
+const MessageNode = ({ data }: { data: { label: string } }) => {
   const { getNode, getEdges } = useReactFlow();
+
   const isValidConnection = useCallback(
     (connection: Connection) => {
       if (connection.source) {
+        const node = getNode(connection.source) as Node;
         const edges = getConnectedEdges(
-          [getNode(connection.source)],
+          [node],
           getEdges()
         );
         return !edges.length;
-      } return false;
+      }
+      return false;
     },
     [getNode, getEdges]
   );
   return (
     <div className={styles["container"]}>
       <div className={styles["header"]}>
-        <span>
-          <AiOutlineMessage size="20" /> Send message
+        <span className={styles['header-title']}>
+          <AiOutlineMessage size="20" /> <span>Send message</span>
         </span>
         <div className={styles["header-logo"]}>
           <Image src={WhatsAppLogo} alt="whatsapp_logo" fill />

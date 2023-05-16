@@ -8,6 +8,7 @@
     grid-template-columns: repeat(auto-fill, 150px);
     gap:$sp-lg;
     padding:$sp-md;
+
 }
 .node {
   display: flex;
@@ -18,6 +19,10 @@
   padding: $sp-md $sp-lg;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.node-editor-container {
+  padding:$sp-lg;
 }
 
 .node-editor-header {
