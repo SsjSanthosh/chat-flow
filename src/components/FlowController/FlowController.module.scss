@@ -31,3 +31,14 @@
 .save-btn {
   justify-self: flex-end;
 }
+
+
+@media (max-width: 976px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .flow-container {
+    height:80vh;
+  }
+}

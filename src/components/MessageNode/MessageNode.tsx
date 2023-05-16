@@ -20,11 +20,16 @@ const MessageNode = ({ data }: { data: { label: string } }) => {
     (connection: Connection) => {
       if (connection.source) {
         const node = getNode(connection.source) as Node;
-        const edges = getConnectedEdges(
+        const connections = getConnectedEdges(
           [node],
           getEdges()
         );
-        return !edges.length;
+        for(let i = 0; i < connections.length; i++) {
+          if(connections[i].source === connection.source) {
+            return false;
+          }
+        }
+        return true;
       }
       return false;
     },
