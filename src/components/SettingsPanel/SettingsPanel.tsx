@@ -1,7 +1,6 @@
 import MessageNodeEditor from "components/MessageNodeEditor";
-import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { Node, useReactFlow } from "reactflow";
+import { Node } from "reactflow";
 import { NODE_TYPES } from "utils/constants";
 
 import styles from "./SettingsPanel.module.scss";
@@ -13,8 +12,6 @@ const SettingsPanel = ({
   selectedNode: null | Node;
   resetNode: () => void;
 }) => {
-  const { setNodes } = useReactFlow();
-
   const onDragStart = (
     event: React.DragEvent<HTMLDivElement>,
     nodeType: string

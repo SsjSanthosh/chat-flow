@@ -19,11 +19,14 @@ const MessageNode = ({ data }: { data: { label: string } }) => {
   const isValidConnection = useCallback(
     (connection: Connection) => {
       if (connection.source) {
+        // get node from source
         const node = getNode(connection.source) as Node;
+        // get all of the node's connections
         const connections = getConnectedEdges(
           [node],
           getEdges()
         );
+        // check if node already has a connection from source
         for(let i = 0; i < connections.length; i++) {
           if(connections[i].source === connection.source) {
             return false;

@@ -8,13 +8,11 @@ import ReactFlow, {
   Background,
   Connection,
   Controls,
-  getConnectedEdges,
   MiniMap,
   Node,
   ReactFlowInstance,
   useEdgesState,
   useNodesState,
-  useReactFlow,
 } from "reactflow";
 
 import styles from "./FlowController.module.scss";
@@ -92,6 +90,7 @@ const FlowController = () => {
     edges.forEach((ed) => {
       targets.add(ed.source);
     });
+    // check if more than node has an empty source
     if (targets.size < nodes.length - 1) {
       if (!toast.isActive(errorId)) {
         toast({
